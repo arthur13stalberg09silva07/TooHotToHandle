@@ -75,3 +75,9 @@ document.addEventListener("keyup", (e) => keysPressed[e.keyCode] = false);
 
 setInterval(updateTimer, 1000);
 gameLoop();
+
+
+function startGame() {
+    window.location.href = "index.html";
+}
+

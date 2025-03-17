@@ -14,7 +14,3 @@ body {
     background-position: center; 
     z-index: -1; 
 }
-
-canvas { 
-    background: #ddd; display: block; margin: auto; 
-}

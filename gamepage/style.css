@@ -14,3 +14,27 @@ body {
     background-position: center; 
     z-index: -1; 
 }
+
+#barreira1 {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+}
+
+#barreira2 {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+}
+
+#barreira3 {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+}
+
+#barreira4 {
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+}

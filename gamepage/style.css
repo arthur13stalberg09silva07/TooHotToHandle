@@ -19,6 +19,7 @@ body {
     position: absolute;
     top: 10%;
     left: 10%;
+    z-index: -1;
 }
 
 #barreira2 {
@@ -37,4 +38,22 @@ body {
     position: absolute;
     bottom: 10%;
     right: 10%;
+}
+
+#um{
+    position: absolute;
+    background-color: red;
+    width: 60px;
+    height: 300px;
+    margin-top: 40px;
+    margin-left: 140px;
+}
+
+#um1{
+    position: absolute;
+    background-color: red;
+    width: 170px;
+    height: 60px;
+    margin-top: 20px;
+    margin-left: 140px;
 }

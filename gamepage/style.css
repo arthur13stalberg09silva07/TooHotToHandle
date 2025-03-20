@@ -15,45 +15,65 @@ body {
     z-index: -1; 
 }
 
-#barreira1 {
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    z-index: -1;
-}
-
-#barreira2 {
-    position: absolute;
-    top: 10%;
-    right: 10%;
-}
-
-#barreira3 {
-    position: absolute;
-    bottom: 10%;
-    left: 10%;
-}
-
-#barreira4 {
-    position: absolute;
-    bottom: 10%;
-    right: 10%;
-}
-
 #um{
     position: absolute;
-    background-color: red;
+    background-color: #5A2700;
     width: 60px;
-    height: 300px;
-    margin-top: 40px;
-    margin-left: 140px;
+    height: 230px;
+    margin-top: 60px;
+    margin-left: 120px;
 }
 
 #um1{
     position: absolute;
-    background-color: red;
+    background-color: #5A2700;
     width: 170px;
     height: 60px;
-    margin-top: 20px;
-    margin-left: 140px;
+    margin-top: 40px;
+    margin-left: 120px;
+}
+
+#dois{
+    position: absolute;
+    background-color: #5A2700;
+    width: 60px;
+    height: 180px;
+    margin-top: 410px;
+    margin-left: 180px;
+}
+
+#dois1{
+    position: absolute;
+    background-color: #5A2700;
+    width: 480px;
+    height: 60px;
+    margin-top: 460px;
+    margin-left: 180px;
+}
+
+#tres{
+    position: absolute;
+    background-color: #5A2700;
+    width: 60px;
+    height: 340px;
+    margin-top: 40px;
+    margin-left: 1280px;
+}   
+
+#tres1{
+    position: absolute;
+    background-color: #5A2700;
+    width: 200px;
+    height: 60px;
+    margin-top: 200px;
+    margin-left: 1140px;
+}
+
+#quatro1{
+    position: absolute;
+    background-color: #5A2700;
+    width: 450px;
+    height: 60px;
+    margin-top: 520px;
+    margin-left: 950px;
 }

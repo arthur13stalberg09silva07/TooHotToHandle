@@ -6,8 +6,27 @@
     <script src="main.js" defer></script>
 </head>
 <body>
-    <h1>Batata Quente</h1>
-    <p>Tempo restante: <span id="timer">90</span>s</p>
-    <canvas id="gameCanvas" width="600" height="400"></canvas>
+    <div id="relogio">
+        <div className="cronometroMinutes">
+            <p className="info">Minutes</p>
+            <h1 className="timer" id="minutos">0</h1>
+        </div>
+        <p className="doisPontos">:</p>
+        <div className="cronometroSeconds">
+            <p className="info">Seconds</p>
+            <h1 className="timer" id="segundos">0</h1>
+        </div>
+    </div>
+
+    <div id="powerUp"></div>
+    <div id="powerUpAumenta"></div>
+    <div id="powerUpDiminui"></div>
+
+    <div id="personagem1">
+        <img id="personagem1Img" src="./assets/jp_poses/frente.png">
+    </div>
+    <div id="personagem2">
+        <img id="personagem2Img" src="./assets/stalberg_poses/frente.png">
+    </div>
 </body>
 </html>

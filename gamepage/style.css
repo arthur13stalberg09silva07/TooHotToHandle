@@ -1,0 +1,120 @@
+ body {
+    text-align: center; 
+    overflow: hidden;
+}
+
+#personagem1, #personagem2
+{
+    position: absolute;
+    height: 190px;
+    width: 85px;
+    display: flex;
+    justify-content: center;
+}
+ 
+#personagem1Img, #personagem2Img
+{
+    height: 195px;
+    width: 95px;
+}
+ 
+#personagem1Img
+{
+    x: left;
+    y: center;
+}
+ 
+#powerUp {
+    display: none;
+    width: 30px;
+    height: 30px;
+    background-image: url('../images/boost.png'); 
+    position: absolute;
+    background-size: cover; 
+    
+}
+ 
+#powerUpAumenta {
+    display: none;
+    width: 40px;
+    height: 30px;
+    background-image: url('../images/+Tempo.png');
+    position: absolute;
+    background-size: cover;  
+    
+}
+ 
+#powerUpDiminui {
+    display: none;
+    width: 40px;
+    height: 30px;
+    background-image: url('../images/-Tempo.png'); 
+    position: absolute;
+    background-size: cover; 
+}
+ 
+#personagem1, #personagem2
+{
+    position: absolute;
+    height: 190px;
+    width: 85px;
+    display: flex;
+    justify-content: center;
+}
+ 
+#personagem1Img, #personagem2Img
+{
+    height: 195px;
+    width: 95px;
+}
+ 
+/* timer */
+.cronometroMinutes{
+    margin-left: 17px;
+}
+ 
+.cronometroSeconds {
+    margin-left: 17px;
+}
+ 
+.info {
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+}
+ 
+.timer {
+    font-family: "Inter", sans-serif;
+    font-weight: bold;
+}
+ 
+.relogio {
+    display: flex;
+}
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/fundoJogo.png'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    z-index: -1; 
+}
+
+#barreira1{
+    position: absolute;
+}
+
+#barreira2{
+    position: absolute;
+}
+
+#barreira3{
+    position: absolute;
+}
+
+#barreira4{
+    position: absolute;
+} 

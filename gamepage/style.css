@@ -1,5 +1,5 @@
- body {
-    text-align: center; 
+ body { 
+    text-align: center;
     overflow: hidden;
 }
 
@@ -76,6 +76,10 @@
 .cronometroSeconds {
     margin-left: 17px;
 }
+.doisPontos{
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+}
  
 .info {
     font-family: "Poppins", sans-serif;
@@ -87,8 +91,9 @@
     font-weight: bold;
 }
  
-.relogio {
-    display: flex;
+#relogio {
+    text-align: center;
+    display: inline-flex;
 }
 .background {
     position: absolute;
@@ -118,3 +123,67 @@
 #barreira4{
     position: absolute;
 } 
+
+/* #um{
+    position: absolute;
+    background-color: #5A2700;
+    width: 60px;
+    height: 230px;
+    margin-top: 60px;
+    margin-left: 120px;
+}
+ 
+#um1{
+    position: absolute;
+    background-color: #5A2700;
+    width: 170px;
+    height: 60px;
+    margin-top: 40px;
+    margin-left: 120px;
+}
+ 
+#dois{
+    position: absolute;
+    background-color: #5A2700;
+    width: 60px;
+    height: 180px;
+    margin-top: 410px;
+    margin-left: 180px;
+}
+ 
+#dois1{
+    position: absolute;
+    background-color: #5A2700;
+    width: 480px;
+    height: 60px;
+    margin-top: 460px;
+    margin-left: 180px;
+}
+ 
+#tres{
+    position: absolute;
+    background-color: #5A2700;
+    width: 60px;
+    height: 340px;
+    margin-top: 40px;
+    margin-left: 1280px;
+}  
+ 
+#tres1{
+    position: absolute;
+    background-color: #5A2700;
+    width: 200px;
+    height: 60px;
+    margin-top: 200px;
+    margin-left: 1140px;
+}
+ 
+#quatro1{
+    position: absolute;
+    background-color: #5A2700;
+    width: 450px;
+    height: 60px;
+    margin-top: 520px;
+    margin-left: 950px;
+}
+  */

@@ -85,7 +85,13 @@
 }
 .doisPontos{
     font-family: "Poppins", sans-serif;
-    font-size: 13px;
+    font-size: 32px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 10px;
+
 }
  
 .info {
@@ -101,7 +107,9 @@
 #relogio {
     font-family: "Inter", sans-serif;
     text-align: center;
-    display: inline-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .background {
     position: absolute;

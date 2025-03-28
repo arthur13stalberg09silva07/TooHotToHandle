@@ -111,6 +111,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .background {
     position: absolute;
     top: 0;
@@ -140,48 +141,48 @@
     position: absolute;
 } 
 
-/* #um{
+#um{
     position: absolute;
     background-color: #5A2700;
-    width: 60px;
-    height: 230px;
-    margin-top: 60px;
+    width: 30px;
+    height: 160px;
+    margin-top: 120px;
     margin-left: 120px;
 }
  
 #um1{
     position: absolute;
     background-color: #5A2700;
-    width: 170px;
-    height: 60px;
-    margin-top: 40px;
+    width: 150px;
+    height: 30px;
+    margin-top: 120px;
     margin-left: 120px;
 }
  
 #dois{
     position: absolute;
     background-color: #5A2700;
-    width: 60px;
-    height: 180px;
-    margin-top: 410px;
-    margin-left: 180px;
+    width: 30px;
+    height: 210px;
+    margin-top: 440px;
+    margin-left: 320px;
 }
  
 #dois1{
     position: absolute;
     background-color: #5A2700;
-    width: 480px;
-    height: 60px;
-    margin-top: 460px;
-    margin-left: 180px;
+    width: 400px;
+    height: 30px;
+    margin-top: 200px;
+    margin-left: 500px;
 }
  
 #tres{
     position: absolute;
     background-color: #5A2700;
-    width: 60px;
-    height: 340px;
-    margin-top: 40px;
+    width: 30px;
+    height: 300px;
+    margin-top: 120px;
     margin-left: 1280px;
 }  
  
@@ -189,17 +190,25 @@
     position: absolute;
     background-color: #5A2700;
     width: 200px;
-    height: 60px;
-    margin-top: 200px;
-    margin-left: 1140px;
+    height: 30px;
+    margin-top: 300px;
+    margin-left: 1100px;
 }
  
 #quatro1{
     position: absolute;
     background-color: #5A2700;
-    width: 450px;
-    height: 60px;
-    margin-top: 520px;
-    margin-left: 950px;
+    width: 30px;
+    height: 180px;
+    margin-top: 220px;
+    margin-left: 600px;
 }
-  */
+
+#cinco1{
+    position: absolute;
+    background-color: #5A2700;
+    width: 30px;
+    height: 100px;
+    margin-top: 130px;
+    margin-left: 800px;
+}

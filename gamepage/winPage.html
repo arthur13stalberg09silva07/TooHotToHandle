@@ -5,27 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Batata Quente</title>
   <link rel="stylesheet" href="styleWin.css">
+  <script src="winPage.js" defer></script>
 </head>
 <body>
   <div class="background"></div>
   <div class="confetes"></div>
   <div class="container">
     <div class="player" id="winner">
-      <img src="../images/joaoGanhador.png" alt="Jogador 1" class="ganhador">
+      <img id="winnerImg" src="../images/joaoGanhador.png" alt="Jogador 1" class="ganhador">
     </div>
 
     <div class="player" id="loser">
-      <img src="../images/stalPerdedor.png" alt="Jogador 2" class="perdedor">
+      <img id="loserImg" src="../images/stalPerdedor.png" alt="Jogador 2" class="perdedor">
     </div>
 
     <div class="panel">
-      <h2>Tempo</h2>
-      <p class="time">01:23</p>
-
-      <h2 id="panelName">Nome</h2>
-      <input type="text" placeholder="Digite o nome do jogador" class="inputName">
-
-      <button class="btPlayAgain">Jogar novamente</button>
+      <button class="btPlayAgain" onclick="reiniciar()">Jogar novamente</button>
+      <button class="sair" onclick="sair()">Sair do jogo</button>
     </div>
   </div>
 </body>

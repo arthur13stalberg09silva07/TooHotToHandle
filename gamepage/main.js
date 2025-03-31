@@ -1,107 +1,3 @@
-// const canvas = document.getElementById("gameCanvas");
-// const ctx = canvas.getContext("2d");
-// const timerDisplay = document.getElementById("timer");
-
-// let players = [
-//   {
-//     x: 100,
-//     y: 150,
-//     width: 50,
-//     height: 50,
-//     color: "blue",
-//     keys: { up: 38, down: 40, left: 37, right: 39 },
-//   },
-//   {
-//     x: 400,
-//     y: 150,
-//     width: 50,
-//     height: 50,
-//     color: "red",
-//     keys: { up: 87, down: 83, left: 65, right: 68 },
-//   },
-// ];
-
-// let batata = { holder: 0, width: 20, height: 20 };
-// let keysPressed = {};
-// let gameTime = 90;
-// let gameRunning = true;
-
-// function drawPlayers() {
-//   players.forEach((player, index) => {
-//     ctx.fillStyle = player.color;
-//     ctx.fillRect(player.x, player.y, player.width, player.height);
-
-//     if (batata.holder === index) {
-//       ctx.fillStyle = "yellow";
-//       ctx.fillRect(player.x + 15, player.y - 20, batata.width, batata.height);
-//     }
-//   });
-// }
-
-// function movePlayers() {
-//   players.forEach((player) => {
-//     if (keysPressed[player.keys.left] && player.x > 0) player.x -= 5;
-//     if (
-//       keysPressed[player.keys.right] &&
-//       player.x < canvas.width - player.width
-//     )
-//       player.x += 5;
-//     if (keysPressed[player.keys.up] && player.y > 0) player.y -= 5;
-//     if (
-//       keysPressed[player.keys.down] &&
-//       player.y < canvas.height - player.height
-//     )
-//       player.y += 5;
-//   });
-// }
-
-// function checkCollision() {
-//   let p1 = players[0],
-//     p2 = players[1];
-//   if (
-//     p1.x < p2.x + p2.width &&
-//     p1.x + p1.width > p2.x &&
-//     p1.y < p2.y + p2.height &&
-//     p1.y + p1.height > p2.y
-//   ) {
-//     batata.holder = 1 - batata.holder;
-//   }
-// }
-
-// function updateTimer() {
-//   if (gameRunning) {
-//     gameTime--;
-//     timerDisplay.textContent = gameTime;
-//     if (gameTime <= 0) endGame();
-//   }
-// }
-
-// function endGame() {
-//   gameRunning = false;
-//   let loser = batata.holder;
-//   players[loser].color = "white";
-//   setTimeout(() => {
-//     players[loser].color = loser === 0 ? "blue" : "red";
-//     batata.holder = Math.floor(Math.random() * 2);
-//     gameTime = 90;
-//     gameRunning = true;
-//   }, 5000);
-// }
-
-// function gameLoop() {
-//   ctx.clearRect(0, 0, canvas.width, canvas.height);
-//   movePlayers();
-//   checkCollision();
-//   drawPlayers();
-//   if (gameRunning) requestAnimationFrame(gameLoop);
-// }
-
-// document.addEventListener("keydown", (e) => (keysPressed[e.keyCode] = true));
-// document.addEventListener("keyup", (e) => (keysPressed[e.keyCode] = false));
-
-// setInterval(updateTimer, 1000);
-// gameLoop();
-
 function startGame() {
     window.location.href = "index.html";
   }
@@ -204,21 +100,66 @@ function startGame() {
       localStorage.setItem("vencedor", vencedor);
       window.location.href = "winPage.html";
   }
-  
+
+  function posicaoValidaParaPowerUp(x, y) {
+    // Cria um retângulo temporário para o power-up (assumindo tamanho 30x30)
+    const rectPowerUp = {
+        left: x,
+        right: x + 30,
+        top: y,
+        bottom: y + 30
+    };
+
+    // Verifica colisão com todas as paredes
+    for (let parede of document.querySelectorAll(".parede")) {
+        const rectParede = parede.getBoundingClientRect();
+
+        if (
+            rectPowerUp.left < rectParede.right &&
+            rectPowerUp.right > rectParede.left &&
+            rectPowerUp.top < rectParede.bottom &&
+            rectPowerUp.bottom > rectParede.top
+        ) {
+            return false; // Posição inválida (dentro de uma parede)
+        }
+    }
+
+    return true; // Posição válida
+}
+
+function gerarPosicaoValida() {
+    let x, y;
+    let tentativas = 0;
+    const maxTentativas = 100; // Para evitar loops infinitos
+    
+    do {
+        x = Math.random() * (larguraTela - 30);
+        y = Math.random() * (alturaTela - 30);
+        tentativas++;
+        
+        // Se tentou muitas vezes e não achou, retorna a posição mesmo assim
+        if (tentativas >= maxTentativas) {
+            return { x, y };
+        }
+    } while (!posicaoValidaParaPowerUp(x, y));
+    
+    return { x, y };
+}
   
   //funções de poderes
   function gerarPowerUp() {
-      let powerUp = document.getElementById("powerUp");
-      powerUp.style.display = "none";
-      let timeout = Math.floor(Math.random() * (4000 - 30000 + 1)) + 4000;
-      setTimeout(() => {
-          powerUp.style.display = "block";
-          let x = Math.random() * (larguraTela - 30);
-          let y = Math.random() * (alturaTela - 30);
-          powerUp.style.left = `${x}px`;
-          powerUp.style.top = `${y}px`;
-      }, timeout);
-  }
+    let powerUp = document.getElementById("powerUp");
+    powerUp.style.display = "none";
+    
+    const intervalo = Math.floor(Math.random() * (15000 - 40000 + 1)) + 15000; // 15 a 40 segundos
+    
+    setTimeout(() => {
+        const { x, y } = gerarPosicaoValida();
+        powerUp.style.left = `${x}px`;
+        powerUp.style.top = `${y}px`;
+        powerUp.style.display = "block";
+    }, intervalo);
+}
   
   function verificarColisaoComPowerUp() {
       let powerUp = document.getElementById("powerUp");
@@ -254,8 +195,6 @@ function startGame() {
           }, 5000);
       }
   }
-  
-  gerarPowerUp();
   
   function posicionarPersonagens() {
       personagem1.style.left = pos1.x + "px";
@@ -331,155 +270,182 @@ function startGame() {
       }
   }
    
-  function verificarColisaoComBarreira(personagem, novaPosX, novaPosY) {
-      const rectPersonagem = personagem.getBoundingClientRect();
-  
-      for (let barreira of document.querySelectorAll(".barreira")) {
-          const rectBarreira = barreira.getBoundingClientRect();
-  
-          if (
-              novaPosX < rectBarreira.right &&
-              novaPosX + rectPersonagem.width > rectBarreira.left &&
-              novaPosY < rectBarreira.bottom &&
-              novaPosY + rectPersonagem.height > rectBarreira.top
-          ) {
-              return true; // Há colisão com a barreira
-          }
-      }
-  
-      return false; // Sem colisão, pode mover
-  }
-  
-  
-  function movimentarPersonagem1() {
-      if (!movimentoPermitido) return;
-      let moveu = false;
-   
-      if (teclasPersonagem1["w"] || teclasPersonagem1["W"]) {
-          pos1.y -= velocidadeP1;
-          if (personagem1Img.classList.contains('batata')) {
-              personagem1Img.src = "../assets/jp_poses/cima_batata.png";
-          } else {
-              personagem1Img.src = "../assets/jp_poses/cima.png";
-          }
-          moveu = true;
-      }
-      
-  
-      if (teclasPersonagem1["s"] || teclasPersonagem1["S"]) {
-          if (pos1.y < alturaTela - personagem1.clientHeight) {
-              pos1.y += velocidadeP1;
-              if (personagem1Img.classList.contains('batata')) {
-                  personagem1Img.src = "../assets/jp_poses/baixo_batata.png";
-              } else {
-                  personagem1Img.src = "../assets/jp_poses/baixo.png";
-              }
-              moveu = true;
-          }
-      }
-  
-      if (teclasPersonagem1["a"] || teclasPersonagem1["A"]) {
-          if (pos1.x > 0) {
-              pos1.x -= velocidadeP1;
-              if (personagem1Img.classList.contains('batata')) {
-                  personagem1Img.src = "../assets/jp_poses/lado_batata.png";
-                  personagem1Img.style.transform = "scaleX(-1)";
-              } else {
-                  personagem1Img.src = "../assets/jp_poses/lado.png";
-                  personagem1Img.style.transform = "scaleX(-1)";
-              }
-              moveu = true;
-          }
-      }
-  
-      if (teclasPersonagem1["d"] || teclasPersonagem1["D"]) {
-          if (pos1.x < larguraTela - personagem1.clientWidth) {
-              pos1.x += velocidadeP1;
-              if (personagem1Img.classList.contains('batata')) {
-                  personagem1Img.src = "../assets/jp_poses/lado_batata.png";
-                  personagem1Img.style.transform = "scaleX(1)";
-              } else {
-                  personagem1Img.src = "../assets/jp_poses/lado.png";
-                  personagem1Img.style.transform = "scaleX(1)";
-              }
-              moveu = true;
-          }
-      }
-   
-      if (moveu) clearTimeout(timeoutParado1);
-   
-      personagem1.style.top = pos1.y + "px";
-      personagem1.style.left = pos1.x + "px";
-  
-      if (verificarColisao()) {
-          passarBatata();
-      }
-  }
-   
-  function movimentarPersonagem2() {
-      if (!movimentoPermitido) return;
-      let moveu = false;
-   
-      if (teclasPersonagem2["ArrowUp"]) {
-          pos2.y -= velocidadeP2;
-          if (personagem2Img.classList.contains('batata')) {
-              personagem2Img.src = "../assets/stalberg_poses/cima_batata.png";
-          } else {
-              personagem2Img.src = "../assets/stalberg_poses/cima.png";
-          }
-          moveu = true;
-      }
-  
-      if (teclasPersonagem2["ArrowDown"]) {
-          if (pos2.y < alturaTela - personagem2.clientHeight) {
-              pos2.y += velocidadeP2;
-              if (personagem2Img.classList.contains('batata')) {
-                  personagem2Img.src = "../assets/stalberg_poses/baixo_batata.png";
-              } else {
-                  personagem2Img.src = "../assets/stalberg_poses/baixo.png";
-              }
-              moveu = true;
-          }
-      }
+  function verificarColisaoComParedes(personagem, novaPosX, novaPosY) {
+    const rectPersonagem = {
+        left: novaPosX,
+        right: novaPosX + personagem.clientWidth,
+        top: novaPosY,
+        bottom: novaPosY + personagem.clientHeight
+    };
+
+    for (let parede of document.querySelectorAll(".parede")) {
+        const rectParede = parede.getBoundingClientRect();
+
+        if (
+            rectPersonagem.left < rectParede.right &&
+            rectPersonagem.right > rectParede.left &&
+            rectPersonagem.top < rectParede.bottom &&
+            rectPersonagem.bottom > rectParede.top
+        ) {
+            return true; // Há colisão com a parede
+        }
+    }
+
+    return false; // Sem colisão, pode mover
+}
   
   
-      if (teclasPersonagem2["ArrowLeft"]) {
-          if (pos2.x > 0) {
-              pos2.x -= velocidadeP2;
-              if (personagem2Img.classList.contains('batata')) {
-                  personagem2Img.src = "../assets/stalberg_poses/lado_batata.png";
-                  personagem2Img.style.transform = "scaleX(-1)";
-              } else {
-                  personagem2Img.src = "../assets/stalberg_poses/lado.png";
-                  personagem2Img.style.transform = "scaleX(-1)";
-              }
-              moveu = true;
-          }
-      }
-  
-      if (teclasPersonagem2["ArrowRight"]) {
-          if (pos2.x < larguraTela - personagem2.clientWidth) {
-              pos2.x += velocidadeP2;
-              if (personagem2Img.classList.contains('batata')) {
-                  personagem2Img.src = "../assets/stalberg_poses/lado_batata.png";
-                  personagem2Img.style.transform = "scaleX(1)";
-              } else {
-                  personagem2Img.src = "../assets/stalberg_poses/lado.png";
-                  personagem2Img.style.transform = "scaleX(1)";
-              }
-              moveu = true;
-          }
-      }
-   
-      if (moveu) clearTimeout(timeoutParado2);
-   
-      personagem2.style.top = pos2.y + "px";
-      personagem2.style.left = pos2.x + "px";
-  
-      if (verificarColisao()) {
-          passarBatata();
-      }
-  }
+function movimentarPersonagem1() {
+    if (!movimentoPermitido) return;
+    let moveu = false;
+    let novaPosX = pos1.x;
+    let novaPosY = pos1.y;
+
+    if (teclasPersonagem1["w"] || teclasPersonagem1["W"]) {
+        novaPosY = pos1.y - velocidadeP1;
+        // Verifica se está dentro da tela E não colide com paredes
+        if (novaPosY >= 0 && !verificarColisaoComParedes(personagem1, pos1.x, novaPosY)) {
+            pos1.y = novaPosY;
+            if (personagem1Img.classList.contains('batata')) {
+                personagem1Img.src = "../assets/jp_poses/cima_batata.png";
+            } else {
+                personagem1Img.src = "../assets/jp_poses/cima.png";
+            }
+            moveu = true;
+        }
+    }
+
+    if (teclasPersonagem1["s"] || teclasPersonagem1["S"]) {
+        novaPosY = pos1.y + velocidadeP1;
+        // Verifica se está dentro da tela E não colide com paredes
+        if (novaPosY <= alturaTela - personagem1.clientHeight && !verificarColisaoComParedes(personagem1, pos1.x, novaPosY)) {
+            pos1.y = novaPosY;
+            if (personagem1Img.classList.contains('batata')) {
+                personagem1Img.src = "../assets/jp_poses/baixo_batata.png";
+            } else {
+                personagem1Img.src = "../assets/jp_poses/baixo.png";
+            }
+            moveu = true;
+        }
+    }
+
+    if (teclasPersonagem1["a"] || teclasPersonagem1["A"]) {
+        novaPosX = pos1.x - velocidadeP1;
+        // Verifica se está dentro da tela E não colide com paredes
+        if (novaPosX >= 0 && !verificarColisaoComParedes(personagem1, novaPosX, pos1.y)) {
+            pos1.x = novaPosX;
+            if (personagem1Img.classList.contains('batata')) {
+                personagem1Img.src = "../assets/jp_poses/lado_batata.png";
+                personagem1Img.style.transform = "scaleX(-1)";
+            } else {
+                personagem1Img.src = "../assets/jp_poses/lado.png";
+                personagem1Img.style.transform = "scaleX(-1)";
+            }
+            moveu = true;
+        }
+    }
+
+    if (teclasPersonagem1["d"] || teclasPersonagem1["D"]) {
+        novaPosX = pos1.x + velocidadeP1;
+        // Verifica se está dentro da tela E não colide com paredes
+        if (novaPosX <= larguraTela - personagem1.clientWidth && !verificarColisaoComParedes(personagem1, novaPosX, pos1.y)) {
+            pos1.x = novaPosX;
+            if (personagem1Img.classList.contains('batata')) {
+                personagem1Img.src = "../assets/jp_poses/lado_batata.png";
+                personagem1Img.style.transform = "scaleX(1)";
+            } else {
+                personagem1Img.src = "../assets/jp_poses/lado.png";
+                personagem1Img.style.transform = "scaleX(1)";
+            }
+            moveu = true;
+        }
+    }
+
+    if (moveu) clearTimeout(timeoutParado1);
+
+    personagem1.style.top = pos1.y + "px";
+    personagem1.style.left = pos1.x + "px";
+
+    if (verificarColisao()) {
+        passarBatata();
+    }
+}
+
+function movimentarPersonagem2() {
+    if (!movimentoPermitido) return;
+    let moveu = false;
+    let novaPosX = pos2.x;
+    let novaPosY = pos2.y;
+
+    if (teclasPersonagem2["ArrowUp"]) {
+        novaPosY = pos2.y - velocidadeP2;
+        // Verifica se está dentro da tela E não colide com paredes
+        if (novaPosY >= 0 && !verificarColisaoComParedes(personagem2, pos2.x, novaPosY)) {
+            pos2.y = novaPosY;
+            if (personagem2Img.classList.contains('batata')) {
+                personagem2Img.src = "../assets/stalberg_poses/cima_batata.png";
+            } else {
+                personagem2Img.src = "../assets/stalberg_poses/cima.png";
+            }
+            moveu = true;
+        }
+    }
+
+    if (teclasPersonagem2["ArrowDown"]) {
+        novaPosY = pos2.y + velocidadeP2;
+        // Verifica se está dentro da tela E não colide com paredes
+        if (novaPosY <= alturaTela - personagem2.clientHeight && !verificarColisaoComParedes(personagem2, pos2.x, novaPosY)) {
+            pos2.y = novaPosY;
+            if (personagem2Img.classList.contains('batata')) {
+                personagem2Img.src = "../assets/stalberg_poses/baixo_batata.png";
+            } else {
+                personagem2Img.src = "../assets/stalberg_poses/baixo.png";
+            }
+            moveu = true;
+        }
+    }
+
+    if (teclasPersonagem2["ArrowLeft"]) {
+        novaPosX = pos2.x - velocidadeP2;
+        // Verifica se está dentro da tela E não colide com paredes
+        if (novaPosX >= 0 && !verificarColisaoComParedes(personagem2, novaPosX, pos2.y)) {
+            pos2.x = novaPosX;
+            if (personagem2Img.classList.contains('batata')) {
+                personagem2Img.src = "../assets/stalberg_poses/lado_batata.png";
+                personagem2Img.style.transform = "scaleX(-1)";
+            } else {
+                personagem2Img.src = "../assets/stalberg_poses/lado.png";
+                personagem2Img.style.transform = "scaleX(-1)";
+            }
+            moveu = true;
+        }
+    }
+
+    if (teclasPersonagem2["ArrowRight"]) {
+        novaPosX = pos2.x + velocidadeP2;
+        // Verifica se está dentro da tela E não colide com paredes
+        if (novaPosX <= larguraTela - personagem2.clientWidth && !verificarColisaoComParedes(personagem2, novaPosX, pos2.y)) {
+            pos2.x = novaPosX;
+            if (personagem2Img.classList.contains('batata')) {
+                personagem2Img.src = "../assets/stalberg_poses/lado_batata.png";
+                personagem2Img.style.transform = "scaleX(1)";
+            } else {
+                personagem2Img.src = "../assets/stalberg_poses/lado.png";
+                personagem2Img.style.transform = "scaleX(1)";
+            }
+            moveu = true;
+        }
+    }
+
+    if (moveu) clearTimeout(timeoutParado2);
+
+    personagem2.style.top = pos2.y + "px";
+    personagem2.style.left = pos2.x + "px";
+
+    if (verificarColisao()) {
+        passarBatata();
+    }
+}
    
   function loopMovimento1() {
       if (!animacaoRodando1) return;
@@ -511,7 +477,7 @@ function startGame() {
   }
   
   //timer
-  let time = 20
+  let time = 90
   
   function montarCronometro(segundos) {
       const minutos = Math.floor(segundos / 60);
@@ -542,19 +508,18 @@ function startGame() {
   
   //gerar power up
   function gerarPowerUpAumenta() {
-      let powerUp = document.getElementById("powerUpAumenta");
-      powerUp.style.display = "none";
-      
-      let timeout = Math.floor(Math.random() * (4000 - 30000 + 1)) + 4000;
-      setTimeout(() => {
-          powerUp.style.display = "block";
-          let x = Math.random() * (larguraTela - 30);
-          let y = Math.random() * (alturaTela - 30);
-          powerUp.style.left = `${x}px`;
-          powerUp.style.top = `${y}px`;
-      }, timeout);
-  
-  }
+    let powerUp = document.getElementById("powerUpAumenta");
+    powerUp.style.display = "none";
+    
+    const intervalo = Math.floor(Math.random() * (15000 - 40000 + 1)) + 15000; // 15 a 40 segundos
+    
+    setTimeout(() => {
+        const { x, y } = gerarPosicaoValida();
+        powerUp.style.left = `${x}px`;
+        powerUp.style.top = `${y}px`;
+        powerUp.style.display = "block";
+    }, intervalo);
+}
   
   function ativarPoderAumenta(personagem) {
       if (personagem === 1) {
@@ -601,16 +566,19 @@ function startGame() {
       }
   }
   
-  gerarPowerUpAumenta();
-  
   function gerarPowerUpDiminui() {
-      let powerUp = document.getElementById("powerUpDiminui");
-      powerUp.style.display = "block";
-      let x = Math.random() * (larguraTela - 30);
-      let y = Math.random() * (alturaTela - 30);
-      powerUp.style.left = `${x}px`;
-      powerUp.style.top = `${y}px`;
-  }
+    let powerUp = document.getElementById("powerUpDiminui");
+    powerUp.style.display = "none";
+    
+    const intervalo = Math.floor(Math.random() * (15000 - 40000 + 1)) + 15000; // 15 a 40 segundos
+    
+    setTimeout(() => {
+        const { x, y } = gerarPosicaoValida();
+        powerUp.style.left = `${x}px`;
+        powerUp.style.top = `${y}px`;
+        powerUp.style.display = "block";
+    }, intervalo);
+}
    
   function ativarPoderDiminui(personagem) {
       if (personagem === 1) {
@@ -658,4 +626,6 @@ function startGame() {
       }
   }
   
-  gerarPowerUpDiminui();
+    gerarPowerUp();
+    gerarPowerUpAumenta();
+    gerarPowerUpDiminui();

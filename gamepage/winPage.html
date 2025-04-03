@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batata Quente</title>
+  <link rel="stylesheet" href="styleWin.css">
+  <script src="winPage.js" defer></script>
+</head>
+<body>
+  <div class="background"></div>
+  <div class="confetes"></div>
+  <div class="container">
+    <div class="player" id="winner">
+      <img id="winnerImg" src="../images/joaoGanhador.png" alt="Jogador 1" class="ganhador">
+    </div>
+
+    <div class="player" id="loser">
+      <img id="loserImg" src="../images/stalPerdedor.png" alt="Jogador 2" class="perdedor">
+    </div>
+
+    <div class="panel">
+      <button class="btPlayAgain" onclick="reiniciar()">Jogar novamente</button>
+      <button class="sair" onclick="sair()">Sair do jogo</button>
+    </div>
+  </div>
+</body>
+</html>

@@ -21,9 +21,9 @@ const btReiniciar = document.getElementsByClassName("btPlayAgain")
 const btSair = document.getElementsByClassName("sair")
 
 function reiniciar() {
-    window.location.href = "index.html";
+    window.location.href = "main.html";
 }
 
 function sair() {
-    window.location.href = "main.html";
+    window.location.href = "index.html";
 }

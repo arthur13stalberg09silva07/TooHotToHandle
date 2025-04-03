@@ -8,7 +8,7 @@ const twinke = new Audio('../audios/twinke.mp3');
 
 
 function startGame() {  
-    window.location.href = "index.html";
+    window.location.href = "main.html";
   }
   
   const personagem1 = document.getElementById("personagem1");

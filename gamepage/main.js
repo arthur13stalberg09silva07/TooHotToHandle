@@ -4,12 +4,9 @@ const feliz = new Audio('../audios/feliz.mp3');
 const fort = new Audio('../audios/fort.mp3');
 const twinke = new Audio('../audios/twinke.mp3');
 
-
-
-
 function startGame() {  
     window.location.href = "main.html";
-  }
+}
   
   const personagem1 = document.getElementById("personagem1");
   const personagem2 = document.getElementById("personagem2");
@@ -40,7 +37,7 @@ function startGame() {
   //escolher jogador inicial
   function sortearBatata() {
       const random = Math.floor(Math.random() * 2) + 1;
-      console.log(random);    
+      localStorage.removeItem("vencedor")
   
       if (random == 1) {
           personagem1Img.src = "../assets/jp_poses/frente_batata.png"
@@ -100,25 +97,27 @@ function startGame() {
           fort.play()  
           explosao.play()
           personagem1Img.src = "../assets/gifs/explosion.gif";
+          console.log('jp explodiu');
           personagem2Img.src = "../assets/stalberg_poses/frente.png"
       } else if (personagem2Img.classList.contains('batata')) {
           fort.play()  
           personagem2Img.src = "../assets/gifs/explosion.gif";
+          console.log('berg explodiu');
           personagem1Img.src = "../assets/jp_poses/frente.png"
       }
   
       setTimeout(()=>{
-          finalizarJogo();
+        finalizarJogo();
       }, 1800)  
   }
   
-  //finalizar
-  function finalizarJogo() {
-      feliz.play()
-      let vencedor = personagem1Img.src.includes("explosion.gif") ? 2 : 1;
-      localStorage.setItem("vencedor", vencedor);
-      window.location.href = "winPage.html";
-  }
+//finalizar
+function finalizarJogo() {
+    feliz.play()
+    let vencedor = personagem1Img.classList.contains("batata") ? 2 : 1;
+    localStorage.setItem("vencedor", vencedor);
+    window.location.href = "winPage.html";
+}
 
   function posicaoValidaParaPowerUp(x, y) {
     // Cria um retângulo temporário para o power-up (assumindo tamanho 30x30)
@@ -497,7 +496,7 @@ function movimentarPersonagem2() {
   }
   
   //timer
-  let time = 10000
+  let time = 10
   
   function montarCronometro(segundos) {
       const minutos = Math.floor(segundos / 60);

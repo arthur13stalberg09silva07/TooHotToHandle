@@ -13,16 +13,16 @@
 #personagem1, #personagem2
 {
     position: absolute;
-    height: 190px;
-    width: 85px;
+    height: 120px;
+    width: 65px;
     display: flex;
     justify-content: center;
 }
  
 #personagem1Img, #personagem2Img
 {
-    height: 195px;
-    width: 95px;
+    height: 125px;
+    width: 75px;
 }
  
 #personagem1Img
@@ -58,21 +58,6 @@
     background-image: url('../images/-Tempo.png'); 
     position: absolute;
     background-size: cover; 
-}
- 
-#personagem1, #personagem2
-{
-    position: absolute;
-    height: 190px;
-    width: 85px;
-    display: flex;
-    justify-content: center;
-}
- 
-#personagem1Img, #personagem2Img
-{
-    height: 195px;
-    width: 95px;
 }
  
 /* timer */
@@ -144,71 +129,71 @@
 #um{
     position: absolute;
     background-color: #5A2700;
-    width: 30px;
+    width: 22px;
     height: 160px;
-    margin-top: 120px;
-    margin-left: 120px;
+    margin-top: 60px;
+    margin-left: 128px;
 }
  
 #um1{
     position: absolute;
     background-color: #5A2700;
     width: 150px;
-    height: 30px;
-    margin-top: 120px;
-    margin-left: 120px;
+    height: 22px;
+    margin-top: 60px;
+    margin-left: 150px;
 }
  
 #dois{
     position: absolute;
     background-color: #5A2700;
-    width: 30px;
+    width: 22px;
     height: 210px;
-    margin-top: 440px;
-    margin-left: 320px;
+    margin-top: 350px;
+    margin-left: 240px;
 }
  
 #dois1{
     position: absolute;
     background-color: #5A2700;
-    width: 400px;
-    height: 30px;
-    margin-top: 200px;
-    margin-left: 500px;
+    width: 360px;
+    height: 22px;
+    margin-top: 170px;
+    margin-left: 450px;
 }
  
 #tres{
     position: absolute;
     background-color: #5A2700;
-    width: 30px;
-    height: 300px;
-    margin-top: 120px;
-    margin-left: 1280px;
+    width: 22px;
+    height: 260px;
+    margin-top: 60px;
+    margin-left: 1100px;
 }  
  
 #tres1{
     position: absolute;
     background-color: #5A2700;
-    width: 200px;
-    height: 30px;
-    margin-top: 300px;
-    margin-left: 1100px;
+    width: 100px;
+    height: 22px;
+    margin-top: 215px;
+    margin-left: 1000px;
 }
  
 #quatro1{
     position: absolute;
     background-color: #5A2700;
-    width: 30px;
-    height: 180px;
-    margin-top: 220px;
-    margin-left: 600px;
+    width: 22px;
+    height: 120px;
+    margin-top: 190px;
+    margin-left: 480px;
 }
 
 #cinco1{
     position: absolute;
     background-color: #5A2700;
-    width: 30px;
-    height: 100px;
-    margin-top: 130px;
-    margin-left: 800px;
+    width: 22px;
+    height: 80px;
+    margin-top: 95px;
+    margin-left: 740px;
 }

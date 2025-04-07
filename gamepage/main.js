@@ -19,11 +19,10 @@ function startGame() {
   const larguraTela = window.innerWidth;
   const alturaTela = window.innerHeight;
   
-  let velocidadeP1 = 5;
-  let velocidadeP2 = 5;
   const VELOCIDADE_PADRAO = 5;
   const VELOCIDADE_AUMENTADA = 10;
-   
+  let velocidadeP1 = VELOCIDADE_AUMENTADA;
+  let velocidadeP2 = VELOCIDADE_AUMENTADA;
   let pos1 = { x: 0, y: alturaTela / 2 };
   let pos2 = { x: larguraTela - 100, y: alturaTela / 2 };
   
@@ -66,23 +65,30 @@ function startGame() {
                rect1.top > rect2.bottom);
   }
   
-  let podePassar = true; // Variável de controle para evitar passagem instantânea
+  let podePassar = true;
   
   function passarBatata() {
-      if (!podePassar) return; // Impede a passagem da batata antes do tempo
+      if (!podePassar) return; 
   
-      podePassar = false; // Bloqueia a passagem temporariamente
+      podePassar = false;
   
       if (personagem1Img.classList.contains('batata') && !personagem2Img.classList.contains('batata')) {
           personagem1Img.classList.remove('batata');
           personagem2Img.classList.add('batata');
+          velocidadeP2 = 5.2
+          velocidadeP1 = VELOCIDADE_PADRAO
       } else if (!personagem1Img.classList.contains('batata') && personagem2Img.classList.contains('batata')) {
           personagem2Img.classList.remove('batata');
           personagem1Img.classList.add('batata');
+          velocidadeP1 = 5.2
+          velocidadeP2 = VELOCIDADE_PADRAO
       }
+
+      verificarParado(1);
+      verificarParado(2);
   
       setTimeout(() => {
-          podePassar = true; // Libera a passagem após 0,7 segundos
+          podePassar = true;
       }, 700);
   }
   
@@ -491,7 +497,7 @@ function movimentarPersonagem2() {
   }
   
   //timer
-  let time = 90
+  let time = 10000
   
   function montarCronometro(segundos) {
       const minutos = Math.floor(segundos / 60);

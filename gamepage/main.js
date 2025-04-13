@@ -4,7 +4,7 @@ const feliz = new Audio('../audios/feliz.mp3');
 const fort = new Audio('../audios/fort.mp3');
 const twinke = new Audio('../audios/twinke.mp3');
 
-async function startGame() {  
+function startGame() {  
     window.location.href = "main.html";
 }
   
@@ -35,7 +35,7 @@ async function startGame() {
   movimentoPermitido = true; //para pausar no fim do jogo
   
   //escolher jogador inicial
-  async function sortearBatata() {
+  function sortearBatata() {
       const random = Math.floor(Math.random() * 2) + 1;
       localStorage.removeItem("vencedor")
   
@@ -52,7 +52,7 @@ async function startGame() {
   sortearBatata()
   
   //passar batata
-  async function verificarColisao() { 
+  function verificarColisao() { 
       const rect1 = personagem1.getBoundingClientRect();
       const rect2 = personagem2.getBoundingClientRect();
   
@@ -64,7 +64,7 @@ async function startGame() {
   
   let podePassar = true;
   
-  async function passarBatata() {
+  function passarBatata() {
       if (!podePassar) return; 
   
       podePassar = false;
@@ -91,7 +91,7 @@ async function startGame() {
   
   
   //explosão
-  async function ativarExplosao() {
+  function ativarExplosao() {
       movimentoPermitido = false;
       if (personagem1Img.classList.contains('batata')) {
           fort.play()  
@@ -112,14 +112,14 @@ async function startGame() {
   }
   
 //finalizar
-async function finalizarJogo() {
+function finalizarJogo() {
     feliz.play()
     let vencedor = personagem1Img.classList.contains("batata") ? 2 : 1;
     localStorage.setItem("vencedor", vencedor);
     window.location.href = "winPage.html";
 }
 
-async function posicaoValidaParaPowerUp(x, y) {
+  function posicaoValidaParaPowerUp(x, y) {
     // Cria um retângulo temporário para o power-up (assumindo tamanho 30x30)
     const rectPowerUp = {
         left: x,
@@ -145,7 +145,7 @@ async function posicaoValidaParaPowerUp(x, y) {
     return true; // Posição válida
 }
 
-async function gerarPosicaoValida() {
+function gerarPosicaoValida() {
     let x, y;
     let tentativas = 0;
     const maxTentativas = 100; // Para evitar loops infinitos
@@ -165,7 +165,7 @@ async function gerarPosicaoValida() {
 }
   
   //funções de poderes
-  async function gerarPowerUp() {
+  function gerarPowerUp() {
     let powerUp = document.getElementById("powerUp");
     powerUp.style.display = "none";
     
@@ -179,7 +179,7 @@ async function gerarPosicaoValida() {
     }, intervalo);
 }
   
-async function verificarColisaoComPowerUp() {
+  function verificarColisaoComPowerUp() {
       let powerUp = document.getElementById("powerUp");
       let rectPowerUp = powerUp.getBoundingClientRect();
       let rectP1 = personagem1.getBoundingClientRect();
@@ -214,7 +214,7 @@ async function verificarColisaoComPowerUp() {
       }
   }
   
-  async function posicionarPersonagens() {
+  function posicionarPersonagens() {
       personagem1.style.left = pos1.x + "px";
       personagem1.style.top = pos1.y + "px";
    
@@ -226,7 +226,7 @@ async function verificarColisaoComPowerUp() {
       posicionarPersonagens();
   };
   
-  async function ativarPoder(personagem) {
+  function ativarPoder(personagem) {
     twinke.play()
       if (personagem === 1) {
           velocidadeP1 = VELOCIDADE_AUMENTADA;
@@ -269,7 +269,7 @@ async function verificarColisaoComPowerUp() {
       }
   });
    
-  async function verificarParado(personagem) {
+  function verificarParado(personagem) {
       if (personagem === 1 && Object.keys(teclasPersonagem1).length === 0 && personagem1Img.classList.contains('batata')) {
           animacaoRodando1 = false;
           personagem1Img.src = "../assets/jp_poses/frente_batata.png";
@@ -289,7 +289,7 @@ async function verificarColisaoComPowerUp() {
       }
   }
    
-  async function verificarColisaoComParedes(personagem, novaPosX, novaPosY) {
+  function verificarColisaoComParedes(personagem, novaPosX, novaPosY) {
     const rectPersonagem = {
         left: novaPosX,
         right: novaPosX + personagem.clientWidth,
@@ -314,7 +314,7 @@ async function verificarColisaoComPowerUp() {
 }
   
   
-async function movimentarPersonagem1() {
+function movimentarPersonagem1() {
     if (!movimentoPermitido) return;
     let moveu = false;
     let novaPosX = pos1.x;
@@ -390,7 +390,7 @@ async function movimentarPersonagem1() {
     }
 }
 
-async function movimentarPersonagem2() {
+function movimentarPersonagem2() {
     if (!movimentoPermitido) return;
     let moveu = false;
     let novaPosX = pos2.x;
@@ -466,7 +466,7 @@ async function movimentarPersonagem2() {
     }
 }
    
-async function loopMovimento1() {
+  function loopMovimento1() {
       if (!animacaoRodando1) return;
       movimentarPersonagem1();
       verificarColisaoComPowerUp();
@@ -475,7 +475,7 @@ async function loopMovimento1() {
       requestAnimationFrame(loopMovimento1);
   }
    
-  async function loopMovimento2() {
+  function loopMovimento2() {
       if (!animacaoRodando2) return;
       movimentarPersonagem2();
       verificarColisaoComPowerUp();
@@ -484,7 +484,7 @@ async function loopMovimento1() {
       requestAnimationFrame(loopMovimento2);
   }
    
-  async function iniciarMovimento(personagem) {
+  function iniciarMovimento(personagem) {
       if (personagem === 1 && !animacaoRodando1) {
           animacaoRodando1 = true;
           requestAnimationFrame(loopMovimento1);
@@ -498,19 +498,19 @@ async function loopMovimento1() {
   //timer
   let time = 90
   
-  async function montarCronometro(segundos) {
+  function montarCronometro(segundos) {
       const minutos = Math.floor(segundos / 60);
       const segundosRestantes = segundos % 60;
       return { minutos, segundos: segundosRestantes };
   } 
   
-  async function atualizarCronometro() {
+  function atualizarCronometro() {
       const { minutos, segundos } = montarCronometro(time);
       document.getElementById("minutos").textContent = String(minutos).padStart(2, '0');
       document.getElementById("segundos").textContent = String(segundos).padStart(2, '0');
   }
   
-  async function iniciarCronometro() {
+  function iniciarCronometro() {
       atualizarCronometro();
       const interval = setInterval(() => {
           if (time > 0) {
@@ -526,7 +526,7 @@ async function loopMovimento1() {
   iniciarCronometro()
   
   //gerar power up
-  async function gerarPowerUpAumenta() {
+  function gerarPowerUpAumenta() {
     let powerUp = document.getElementById("powerUpAumenta");
     powerUp.style.display = "none";
     
@@ -540,7 +540,7 @@ async function loopMovimento1() {
     }, intervalo);
 }
   
-async function ativarPoderAumenta(personagem) {
+  function ativarPoderAumenta(personagem) {
     coin.play()
       if (personagem === 1) {
           time += 10
@@ -551,7 +551,7 @@ async function ativarPoderAumenta(personagem) {
       }
   }
   
-  async function verificarColisaoComPowerUpAumenta() {
+  function verificarColisaoComPowerUpAumenta() {
       let powerUp = document.getElementById("powerUpAumenta");
       let rectPowerUp = powerUp.getBoundingClientRect();
       let rectP1 = personagem1.getBoundingClientRect();
@@ -586,7 +586,7 @@ async function ativarPoderAumenta(personagem) {
       }
   }
   
-  async function gerarPowerUpDiminui() {
+  function gerarPowerUpDiminui() {
     let powerUp = document.getElementById("powerUpDiminui");
     powerUp.style.display = "none";
     
@@ -600,7 +600,7 @@ async function ativarPoderAumenta(personagem) {
     }, intervalo);
 }
    
-async function ativarPoderDiminui(personagem) {
+  function ativarPoderDiminui(personagem) {
     coin.play()
       if (personagem === 1) {
           time -= 10
@@ -611,7 +611,7 @@ async function ativarPoderDiminui(personagem) {
       }
   }
   
-  async function verificarColisaoComPowerUpDiminui() {
+  function verificarColisaoComPowerUpDiminui() {
       let powerUp = document.getElementById("powerUpDiminui");
       let rectPowerUp = powerUp.getBoundingClientRect();
       let rectP1 = personagem1.getBoundingClientRect();

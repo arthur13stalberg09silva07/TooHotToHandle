@@ -497,7 +497,7 @@ function movimentarPersonagem2() {
   }
   
   //timer
-  let time = 40
+  let time = 90
   
   function montarCronometro(segundos) {
       const minutos = Math.floor(segundos / 60);

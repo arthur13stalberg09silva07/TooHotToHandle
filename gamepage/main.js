@@ -26,7 +26,7 @@ function startGame() {
   // Controle individual de teclas pressionadas
   let teclasPersonagem1 = {};
   let teclasPersonagem2 = {};
-   
+
   let animacaoRodando1 = false;
   let animacaoRodando2 = false;
    
@@ -91,25 +91,25 @@ function startGame() {
   
   
   //explosão
-  function ativarExplosao() {
-      movimentoPermitido = false;
-      if (personagem1Img.classList.contains('batata')) {
-          fort.play()  
-          explosao.play()
-          personagem1Img.src = "../assets/gifs/explosion.gif";
-          console.log('jp explodiu');
-          personagem2Img.src = "../assets/stalberg_poses/frente.png"
-      } else if (personagem2Img.classList.contains('batata')) {
-          fort.play()  
-          personagem2Img.src = "../assets/gifs/explosion.gif";
-          console.log('berg explodiu');
-          personagem1Img.src = "../assets/jp_poses/frente.png"
-      }
+  async function ativarExplosao() {
+    movimentoPermitido = false;
+    if (personagem1Img.classList.contains('batata')) {
+        fort.play();
+        explosao.play();
+        personagem1Img.src = "../assets/gifs/explosion.gif";
+        console.log('jp explodiu');
+        personagem2Img.src = "../assets/stalberg_poses/frente.png";
+    } else if (personagem2Img.classList.contains('batata')) {
+        fort.play();
+        personagem2Img.src = "../assets/gifs/explosion.gif";
+        console.log('berg explodiu');
+        personagem1Img.src = "../assets/jp_poses/frente.png";
+    }
   
-      setTimeout(()=>{
-        finalizarJogo();
-      }, 1800)  
-  }
+    await new Promise(resolve => setTimeout(resolve, 1800));  
+    finalizarJogo();
+}
+
   
 //finalizar
 function finalizarJogo() {
@@ -165,19 +165,19 @@ function gerarPosicaoValida() {
 }
   
   //funções de poderes
-  function gerarPowerUp() {
+async function gerarPowerUp() {
     let powerUp = document.getElementById("powerUp");
     powerUp.style.display = "none";
-    
-    const intervalo = Math.floor(Math.random() * (15000 - 40000 + 1)) + 15000; // 15 a 40 segundos
-    
-    setTimeout(() => {
-        const { x, y } = gerarPosicaoValida();
-        powerUp.style.left = `${x}px`;
-        powerUp.style.top = `${y}px`;
-        powerUp.style.display = "block";
-    }, intervalo);
+
+    const intervalo = Math.floor(Math.random() * (15000 - 40000 + 1)) + 15000; 
+
+    await new Promise(resolve => setTimeout(resolve, intervalo)); 
+    const { x, y } = gerarPosicaoValida();
+    powerUp.style.left = `${x}px`;
+    powerUp.style.top = `${y}px`;
+    powerUp.style.display = "block";
 }
+
   
   function verificarColisaoComPowerUp() {
       let powerUp = document.getElementById("powerUp");
@@ -465,15 +465,16 @@ function movimentarPersonagem2() {
         passarBatata();
     }
 }
-   
-  function loopMovimento1() {
-      if (!animacaoRodando1) return;
-      movimentarPersonagem1();
-      verificarColisaoComPowerUp();
-      verificarColisaoComPowerUpAumenta();
-      verificarColisaoComPowerUpDiminui();
-      requestAnimationFrame(loopMovimento1);
-  }
+
+  async function loopMovimento1() {
+    if (!animacaoRodando1) return;
+    movimentarPersonagem1();
+    verificarColisaoComPowerUp();
+    verificarColisaoComPowerUpAumenta();
+    verificarColisaoComPowerUpDiminui();
+    await new Promise(resolve => requestAnimationFrame(() => resolve()));
+    loopMovimento1(); 
+}
    
   function loopMovimento2() {
       if (!animacaoRodando2) return;
@@ -496,7 +497,7 @@ function movimentarPersonagem2() {
   }
   
   //timer
-  let time = 90
+  let time = 40
   
   function montarCronometro(segundos) {
       const minutos = Math.floor(segundos / 60);
@@ -551,40 +552,38 @@ function movimentarPersonagem2() {
       }
   }
   
-  function verificarColisaoComPowerUpAumenta() {
-      let powerUp = document.getElementById("powerUpAumenta");
-      let rectPowerUp = powerUp.getBoundingClientRect();
-      let rectP1 = personagem1.getBoundingClientRect();
-      let rectP2 = personagem2.getBoundingClientRect();
-   
-      if (
-          rectP1.left < rectPowerUp.right &&
-          rectP1.right > rectPowerUp.left &&
-          rectP1.top < rectPowerUp.bottom &&
-          rectP1.bottom > rectPowerUp.top
-      ) {
-          ativarPoderAumenta(1);
-          powerUp.style.display = "none";
-          setTimeout(() => {
-              powerUp.style.display = "block";
-              gerarPowerUpAumenta();
-          }, 7000);
-      }
-   
-      if (
-          rectP2.left < rectPowerUp.right &&
-          rectP2.right > rectPowerUp.left &&
-          rectP2.top < rectPowerUp.bottom &&
-          rectP2.bottom > rectPowerUp.top
-      ) {
-          ativarPoderAumenta(2);
-          powerUp.style.display = "none";
-          setTimeout(() => {
-              powerUp.style.display = "block";
-              gerarPowerUpAumenta();
-          }, 7000);
-      }
-  }
+  async function verificarColisaoComPowerUpAumenta() {
+    let powerUp = document.getElementById("powerUpAumenta");
+    let rectPowerUp = powerUp.getBoundingClientRect();
+    let rectP1 = personagem1.getBoundingClientRect();
+    let rectP2 = personagem2.getBoundingClientRect();
+
+    if (
+        rectP1.left < rectPowerUp.right &&
+        rectP1.right > rectPowerUp.left &&
+        rectP1.top < rectPowerUp.bottom &&
+        rectP1.bottom > rectPowerUp.top
+    ) {
+        ativarPoderAumenta(1);
+        powerUp.style.display = "none";
+        await new Promise(resolve => setTimeout(resolve, 7000));  
+        powerUp.style.display = "block";
+        gerarPowerUpAumenta();
+    }
+
+    if (
+        rectP2.left < rectPowerUp.right &&
+        rectP2.right > rectPowerUp.left &&
+        rectP2.top < rectPowerUp.bottom &&
+        rectP2.bottom > rectPowerUp.top
+    ) {
+        ativarPoderAumenta(2);
+        powerUp.style.display = "none";
+        await new Promise(resolve => setTimeout(resolve, 7000)); 
+        powerUp.style.display = "block";
+        gerarPowerUpAumenta();
+    }
+}
   
   function gerarPowerUpDiminui() {
     let powerUp = document.getElementById("powerUpDiminui");
